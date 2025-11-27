@@ -8,8 +8,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <body>
-    <section class="flex justify-center items-center min-h-screen bg-blue-50">
-        <div class="w-full max-w-lg bg-white shadow-xl rounded-xl p-10 border border-gray-200 relative">
+    <section class="flex justify-center items-center min-h-screen">
+        <div class="w-full max-w-lg shadow-xl rounded-xl p-10 border border-gray-200 relative">
             <!-- 🔹 Page Heading (at top of form) -->
             <h1 class="text-3xl font-extrabold text-blue-700 text-center mb-8 uppercase tracking-wide">
                 Admin login

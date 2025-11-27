@@ -26,14 +26,14 @@ class Subject extends Model
     
     public function classes()
     {
-        return $this->belongsToMany(Classes::class,'class_teacher_subject')
+        return $this->belongsToMany(Classes::class,'class_teacher_subject','subject_id,class_id')
         ->withPivot('teacher_id','academic_year')
         ->withTimestamps();
     }
 
     public function teacher()
     {
-        return $this->belongsToMany(Teacher::class,'create_teacher_sbject')
+        return $this->belongsToMany(Teacher::class,'create_teacher_sbject','subject_id,teacher_id')
         ->withpivot('class_id','academic_year')
         ->withTimestamps();
     }

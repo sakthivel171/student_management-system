@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\Admin\authcontroller;
 use App\Http\Controllers\Admin\dashboardcontroller;
+use App\Http\Controllers\Admin\Departmentcontroller;
+use App\Http\Controllers\Admin\Teachercontroller;
+use App\Http\Controllers\Admn\classcontroller;
 use App\Http\Controllers\Student\studentAuthcontroller;
 use App\Http\Controllers\Student\studentdashboardcontroller;
 use App\Http\Controllers\Teacher\teacherAuthcontroller;
 use App\Http\Controllers\Teacher\teacherdashboardcontroller;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,7 +26,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('logout', [authcontroller::class, 'logout'])->name('logout');
     Route::get('dashboard', [dashboardcontroller::class, 'index'])->name('dashboard');
+   
+    Route::resource('departments', Departmentcontroller::class);
+
+    Route::resource('classes',classcontroller::class);
+
+    Route::resource('teachers',Teachercontroller::class);
 });
+
 
 
 

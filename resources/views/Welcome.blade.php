@@ -1,31 +1,53 @@
-<!-- resources/views/welcome.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Management System</title>
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class=" from-blue-50 to-purple-50 min-h-screen flex items-center justify-center">
-    <div class="text-center">
-        <h1 class="text-5xl font-bold text-gray-800 mb-4">Student Management System</h1>
-        <p class="text-xl text-gray-600 mb-8">Select Your Portal</p>
-        
-        <div class="flex gap-6 justify-center">
-            <a href="{{ route('admin.login') }}" 
-               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition transform hover:scale-105 shadow-lg">
-                Admin Portal
+
+<body class="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 min-h-screen flex items-center justify-center text-white ">
+
+
+    <!-- Card Section -->
+    <div class="relative max-w-xl w-full p-10 rounded-2xl shadow-2xl backdrop-blur-xl border border-white/10 bg-white/10 animate__animated animate__fadeIn">
+
+        <h1 class="text-4xl font-extrabold mb-3 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-500">
+            Student Management System
+        </h1>
+        <p class="text-center text-gray-300 mb-10 text-lg tracking-wide">
+            Select Your Portal to Continue
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+
+            <!-- Admin -->
+            <a href="{{ route('admin.login') }}"
+            class="group bg-gradient-to-br from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            hover:scale-105 hover:shadow-blue-500/50">
+                <span class="group-hover:text-white">Admin</span>
             </a>
-            <a href="{{ route('teacher.login') }}" 
-               class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition transform hover:scale-105 shadow-lg">
-                Teacher Portal
+
+            <!-- Teacher -->
+            <a href="{{ route('teacher.login') }}"
+            class="group bg-gradient-to-br from-green-600 to-green-800 hover:from-green-500 hover:to-green-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            hover:scale-105 hover:shadow-green-500/50">
+                <span class="group-hover:text-white">Teacher</span>
             </a>
-            <a href="{{ route('student.login') }}" 
-               class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl text-lg font-semibold transition transform hover:scale-105 shadow-lg">
-                Student Portal
+
+            <!-- Student -->
+            <a href="{{ route('student.login') }}"
+            class="group bg-gradient-to-br from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            hover:scale-105 hover:shadow-purple-500/50">
+                <span class="group-hover:text-white">Student</span>
             </a>
+
         </div>
+
     </div>
 </body>
 </html>

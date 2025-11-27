@@ -1,114 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Management System</title>
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <title>@yield('title', 'Admin Dashboard') - Student Management System</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans  min-h-screen">
 
-  
-  <div class=" mx-auto flex bg-gray-100">
-    <div>
-       
-        <h2 class="text-3xl  px-8 py-3 w-52 bg-yellow-400 text-white font-semibold">Akkhor</h2>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
+
+
+  <nav class="  bg-slate-900/90 backdrop-blur border-b border-slate-700">
+    <div class=" mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+
+        <div class="flex items-center gap-2 ">
+          <div
+            class="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg">
+            <span class="font-extrabold text-white text-xl">S</span>
+          </div>
+          <div>
+            <h1 class="text-2xl sfont-bold text-white leading-tight">
+              Admin Portal
+            </h1>
+            <p class="text-[14px] text-slate-400 hidden sm:block">
+              Student Management System
+            </p>
+          </div>
+        </div>
+
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="{{route('admin.dashboard')}}"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-200 bg-slate-800 shadow hover:bg-indigo-700">
+            Dashboard
+          </a>
+          <a href="{{route('admin.departments.index')}}"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white ">
+            Departments
+          </a>
+          <a href="{{route('admin.classes.index')}}"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white ">
+            Classes
+          </a>
+          <a href="{{route('admin.teachers.index')}}"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white">
+            Teachers
+          </a>
+          <a href="#"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white ">
+            Students
+          </a>
+          <a href="#"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white">
+            Subjects
+          </a>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="hidden sm:flex flex-col items-end">
+            <span class="text-sm font-semibold text-slate-100">
+              {{ auth()->guard('admin')->user()->name }}
+            </span>
+            <span class="text-[11px] text-emerald-300 uppercase tracking-wide">
+              Admin
+            </span>
+          </div>
+          <form method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button type="submit"
+              class="text-sm px-4 py-2 rounded-lg border border-red-500/70 text-red-300 hover:bg-red-500 hover:text-white hover:border-red-500 transition shadow-sm">
+              Logout
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="">
-      <h1 class="text-2xl px-8 py-3  text-neutral-400"><span class="text-black px-2 font-bold">Welcome To Akkhor</span >Student Management System</h1>
-    </div>
+  </nav>
+
   </div>
-
-  <!-- Sidebar + Content -->
-  <div class="flex">
-    <!-- Sidebar -->
-    <div class=" w-44 lg:w-52 bg-[#06376e] ">
-      <div class=" md:block ">
-        <div>
-            <button onclick="toggleDropdown(1)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Dashboard</span>
-                  <span id="arrow-1" class="transition-transform ">></span>
-            </button>
-            <div id="content-1" class="hidden bg-[#042954] ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Admin</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Teachers</a>
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Students</a>
-            </div>
-
-             <button onclick="toggleDropdown(2)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Teachers</span>
-                  <span id="arrow-2" class="transition-transform">></span>
-            </button>
-            <div id="content-2" class="hidden bg-[#042954] ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">All Teachers</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200 hover:bg-[#042954] hover:text-amber-300">Teacher Details</a>
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Add Teacher</a>
-            </div>
-
-             <button onclick="toggleDropdown(3)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Students</span>
-                  <span id="arrow-3" class="transition-transform">></span>
-            </button>
-            <div id="content-3" class="hidden bg-[#042954]  ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200 hover:text-amber-300">All Students</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200 hover:text-amber-300">Student Details</a>
-              <a href="" class="block w-full px-6 py-2 text-gray-200 hover:text-amber-300">Add Student</a>
-            </div>
-
-              <button onclick="toggleDropdown(3)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Parents</span>
-                  <span id="arrow-3" class="transition-transform">></span>
-            </button>
-            <div id="content-3" class="hidden bg-[#042954] ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200 hover:text-amber-300">All Parents</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Parent Details</a>
-            </div>
-
-            
-              <button onclick="toggleDropdown(4)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Attendance</span>
-                  <span id="arrow-4" class="transition-transform">></span>
-            </button>
-            <div id="content-4" class="hidden bg-[#042954]  ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">All Parents</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200   hover:text-amber-300">Parent Details</a>
-            </div>
-
-            
-              <button onclick="toggleDropdown(5)" class=" w-full px-6 py-4 text-gray-200 hover:text-white hover:bg-[#042954]  flex justify-between ">
-                 <span>Exam Schedule</span>
-                  <span id="arrow-5" class="transition-transform">></span>
-            </button>
-            <div id="content-5" class="hidden bg-[#042954]  ">
-              <a href="" class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">All Parents</a>
-              <a href=""class="block w-full px-6 py-2 text-gray-200  hover:text-amber-300">Parent Details</a>
-            </div>
-        
-       </div>
-       </div>
-      
-
-    </div>
+  <!-- Content -->
+  <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen px-6 mt-6">
     <!-- Content -->
-    <div class="flex-1  min-h-screen bg-gray-200">
-<!-- Content -->
-     <div>
+    <div>
       @yield('content')
-     </div>
-      
     </div>
+
   </div>
-
-  <script>
-    function toggleDropdown(id){
-        const content=document.getElementById(`content-${id}`);
-        const arrow=document.getElementById(`arrow-${id}`);
-
-        content.classList.toggle('hidden');
-            arrow.style.transform=content.classList.contains("hidden")?"rotate(0deg)":"rotate(90deg)";
-        
-    }
-    
-  </script>
+  </div>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </body>
+
 </html>

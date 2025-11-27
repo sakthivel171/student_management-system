@@ -22,14 +22,14 @@ class Teacher extends authenticable
         'qualification',
         'joining_date'
     ];
-
+ 
     protected $hidden = [
         'password',
         'remember_token'
     ];
     protected $casts = [
         'password' => 'hashed',
-        'joining_date' => 'date',
+        'joining_date' => 'date:Y-m-d',
     ];
     public function department()
     {
@@ -38,7 +38,7 @@ class Teacher extends authenticable
 
     public function classes()
     {
-        return $this->belongsToMany(Classes::class,'class_teacher_subject')
+        return $this->belongsToMany(Classes::class,'class_teacher_subject','teacher_id','class_id')
         ->withPivot('subject_id','academic_year')
         ->withTimestamps();
         
@@ -46,7 +46,7 @@ class Teacher extends authenticable
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class,'class_teacher_subject')
+        return $this->belongsToMany(Subject::class,'class_teacher_subject','teacher_id','subject_id')
         ->withpivot('class_id','academic_year')
         ->withTimestamps();
 
