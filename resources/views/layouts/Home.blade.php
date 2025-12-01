@@ -32,8 +32,10 @@
 
 
         <div class="hidden md:flex items-center space-x-6">
+
+          <!--different routes for sms -->
           <a href="{{route('admin.dashboard')}}"
-            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-200 bg-slate-800 shadow hover:bg-indigo-700">
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-200 bg-slate-800 shadow hover:bg-indigo-700  active:bg-indigo-700">
             Dashboard
           </a>
           <a href="{{route('admin.departments.index')}}"
@@ -48,18 +50,25 @@
             class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white">
             Teachers
           </a>
-          <a href="#"
+          <a href="{{route('admin.students.index')}}"
             class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white ">
             Students
           </a>
-          <a href="#"
+          <a href="{{route('admin.subjects.index')}}"
             class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white">
             Subjects
+          </a>
+
+          <a href="{{route('admin.assignments.index')}}"
+            class="px-3 py-2 rounded-lg text-lg font-medium text-slate-300 hover:bg-indigo-600 hover:text-white">
+            Assignments
           </a>
         </div>
 
         <div class="flex items-center space-x-3">
+          <!-- used to show the admin name -->
           <div class="hidden sm:flex flex-col items-end">
+
             <span class="text-sm font-semibold text-slate-100">
               {{ auth()->guard('admin')->user()->name }}
             </span>
@@ -67,6 +76,8 @@
               Admin
             </span>
           </div>
+
+          <!-- admin logout -->
           <form method="POST" action="{{ route('admin.logout') }}">
             @csrf
             <button type="submit"

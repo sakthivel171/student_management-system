@@ -20,7 +20,8 @@ class Teacher extends authenticable
         'phone',
         'employee_id',
         'qualification',
-        'joining_date'
+        'joining_date',
+        'profile_image',
     ];
  
     protected $hidden = [
@@ -50,6 +51,14 @@ class Teacher extends authenticable
         ->withpivot('class_id','academic_year')
         ->withTimestamps();
 
+    }
+
+     public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        return asset('storage/profile_images/teacher.jpg');
     }
 
 

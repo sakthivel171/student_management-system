@@ -1,38 +1,89 @@
 @extends('layouts.Home')
 
-@section('title','Class Details')
+@section('title', 'Classes Details')
 
 @section('content')
-<div>
-    <h1 class="text-3xl font-bold text-white tracking-tight">{{$class->name}}</h1>
-    <p class="text-2xl font-bold text-slate-300 mt-1">
-        section: <span class="font-semibold text-2xl text-emerald-300">{{$class->section}}</span>
-    </p>
-</div>
+<div class="bg-slate-800/60 p-8 rounded-xl shadow-lg text-white w-full max-w-4xl mx-auto">
 
 
-    <div class="grid grid-cols-3 gap-5 text-white mt-5  mx-auto w-full ">
-    
-        <div class="bg-slate-900/70 border border-indigo-500/60 rounded-2xl p-5 shadow-lg shadow-indigo-500/10 hover:-translate-y-1 hover:shadow-indigo-500/30 transition transform">
-            <h2 class="text-xs font-semibold uppercase tracking-wide text-indigo-300">Total Classes</h2>
-            <p class="mt-3 text-4xl font-extrabold text-white">{{$class->teachers->count()}}</p>
-        </div>
-    
-        <div class="bg-slate-900/70 border border-sky-500/60 rounded-2xl p-5 shadow-lg shadow-sky-500/10 hover:-translate-y-1 hover:shadow-sky-500/30 transition transform">
-            <h2 class="text-xs font-semibold uppercase tracking-wide text-sky-300">Total Teachers</h2>
-            <p class="mt-3 text-4xl font-extrabold text-white">{{$class->students->count()}}</p>
-        </div>
-    
-        <div class="bg-slate-900/70 border border-emerald-500/60 rounded-2xl p-5 shadow-lg shadow-emerald-500/10 hover:-translate-y-1 hover:shadow-emerald-500/30 transition transform">
-            <h2 class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Total Subjects</h2>
-            <p class="mt-3 text-4xl font-extrabold text-white">{{$class->subjects->count()}}</p>
-        </div>
-    
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-indigo-400">{{ $class->name }}-{{$class->section}}</h1>
+        <p class="text-lg mt-2">
+            <span class="text-slate-300 font-semibold">Semester:</span>
+            <span class="text-emerald-300">{{ $class->semester}}</span>
+        </p>
+        <p class="text-lg mt-1">
+            <span class="text-slate-300 font-semibold">Academic Year:</span>
+            <span class="text-emerald-300">{{ $class->academic_year ??'2024-2025' }}</span>
+        </p>
     </div>
-    <div class="flex gap-5 mt-7">
-        <a href="{{route('admin.classes.edit',$class->id)}}" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition">Edit Class</a>
-        <a href="{{route('admin.classes.index')}}" class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-semibold transition">Back To List</a>
+
+
+    <div class="bg-slate-900/70 border border-indigo-500/60 rounded-xl p-5 mb-6">
+        <h2 class="text-xl font-semibold text-indigo-300 mb-3">Department Info</h2>
+        <p><strong class="text-blue-300">Department:</strong>
+            {{ $class->department?->name }}
+        </p>
+        <p><strong class="text-blue-300">code:</strong>
+            {{ $class->department->code }}
 
     </div>
 
-@endsection
+    <div class="grid grid-cols-3 gap-5 mb-6">
+
+
+        <div class="bg-slate-900/70 border border-emerald-500/60 rounded-xl p-5 text-center">
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Teachers</h3>
+            <p class="mt-2 text-4xl font-extrabold">
+                {{$class->subjects->count()}}
+            </p>
+        </div>
+
+
+        <div class="bg-slate-900/70 border border-blue-500/60 rounded-xl p-5 text-center">
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-blue-300">Subjects</h3>
+            <p class="mt-2 text-4xl font-extrabold">
+                {{$class->teachers->count()}}
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-emerald-400 mb-3">Handled Staff</h2>
+        <ul class="pl-6">
+            @forelse($class->teachers as $teacher)
+            <li class="text-slate-300">{{ $teacher->name }}- <span class="text-red-200">( {{ $teacher->email}} )</span></li>
+            @empty
+            <li class="text-slate-300">No classes assigned yet</li>
+            @endforelse
+        </ul>
+
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-blue-400 mb-3">Subjects</h2>
+            <ul class=" pl-6">
+                @forelse($class->subjects as $subject)
+                <li class="text-slate-300">{{ $subject->name }}- <span class="text-red-200">Sem {{$subject->semester}}</span></li>
+                @empty
+                <li class="text-slate-300">No subjects assigned yet</li>
+                @endforelse
+            </ul>
+        </div>
+
+        <div class="flex gap-5 mt-7">
+            <a href="{{ route('admin.classes.edit', $class->id) }}"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold transition">
+                Edit Classes
+            </a>
+
+            <a href="{{ route('admin.classes.index') }}"
+                class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-semibold transition">
+                Back To List
+            </a>
+        </div>
+
+    </div>
+
+    </div>
+    @endsection

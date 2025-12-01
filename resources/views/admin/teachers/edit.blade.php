@@ -6,11 +6,19 @@
 <div class="flex justify-center">
     <div
         class="bg-gray-200 rounded-xl shadow-lg p-10 w-full max-w-xl mt-10 border-2 border-indigo-300 shadow-indigo-100">
-        <div class="mb-6 text-center">
-            <h2 class="text-4xl font-bold text-indigo-600 tracking-wide">Update Teacher</h2>
+        <div class="mb-6 flex   gap-6 text-center">
+
+              @if($teacher->profile_image)
+                <div class="mb-4">
+                    <img src="{{ $teacher->profile_image_url }}" alt="Profile image"
+                        class="w-16 h-16 rounded-full border border-indigo-500 shadow">
+                </div>
+                @endif
+
+            <h2 class="text-5xl font-bold text-indigo-600 tracking-wide">Update Teacher</h2>
         </div>
 
-        <form method="POST" action="{{ route('admin.teachers.update',$teacher->id) }}">
+        <form method="POST" action="{{ route('admin.teachers.update',$teacher->id) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -23,6 +31,9 @@
                 </ul>
             </div>
             @endif
+
+           
+
 
             <div class="mb-6">
                 <label for="name" class="text-lg text-indigo-700 tracking-wide">Teacher Name</label>
@@ -85,6 +96,16 @@
                         class="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:border-indigo-600 focus:border-2"
                         required>
                 </div>
+              
+
+                <div class="mb-4">
+                    <label class="text-sm font-semibold text-indigo-700">Profile Image</label>
+                    <input type="file" name="profile_image"
+                        class="w-full px-4 py-2 border border-indigo-400 rounded-lg  mt-1">
+                </div>
+
+
+
             </div>
 
             <div class="flex gap-4 justify-center py-4">

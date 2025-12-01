@@ -11,7 +11,7 @@
             <p class="text-indigo-500 mt-2">Fill the form below to add a new teacher</p>
         </div>
 
-        <form method="POST" action="{{ route('admin.teachers.store') }}">
+        <form method="POST" action="{{ route('admin.teachers.store') }}" enctype="multipart/form-data">
             @csrf
 
             @if ($errors->any())
@@ -92,6 +92,15 @@
                         class="w-full px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:border-indigo-600 focus:border-2"
                         required>
                 </div>
+
+                <div class="mb-4">
+                    <label for="profile_image" class="text-lg text-indigo-700 tracking-wide">profile Image</label>
+                    <input type="file" name="profile_image" id="profile_image"  class="mt-1 w-full border border-indigo-400 rounded-lg px-3 py-2 b">
+                @error('profile_image')
+                <p class="text-red-500 text-sm mt-1">{{message}}</p>
+                @enderror    
+            </div>
+               
             </div>
 
             <div class="flex gap-4 justify-center py-4">

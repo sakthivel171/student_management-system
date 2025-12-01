@@ -17,7 +17,7 @@ class classcontroller extends Controller
     {
         //
         $classes=Classes::with('department')
-        ->inrandomorder()
+        ->latest()
         ->paginate(10);
         return view('admin.classes.index',compact('classes'));
     }

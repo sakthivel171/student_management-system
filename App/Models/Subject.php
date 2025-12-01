@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Subject extends Model
 {
-    //
     use HasFactory;
 
     protected $fillable = [
@@ -17,25 +15,23 @@ class Subject extends Model
         'code',
         'semester'
     ];
-    
 
     public function department()
     {
-        return $this->belongsTo(department::class);
-    }
-    
-    public function classes()
-    {
-        return $this->belongsToMany(Classes::class,'class_teacher_subject','subject_id,class_id')
-        ->withPivot('teacher_id','academic_year')
-        ->withTimestamps();
+        return $this->belongsTo(Department::class);
     }
 
-    public function teacher()
+    public function classes()
     {
-        return $this->belongsToMany(Teacher::class,'create_teacher_sbject','subject_id,teacher_id')
-        ->withpivot('class_id','academic_year')
-        ->withTimestamps();
+        return $this->belongsToMany(Classes::class, 'class_teacher_subject', 'subject_id', 'class_id')
+                    ->withPivot('teacher_id', 'academic_year')
+                    ->withTimestamps();
     }
-    
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'class_teacher_subject', 'subject_id', 'teacher_id')
+                    ->withPivot('class_id', 'academic_year')
+                    ->withTimestamps();
+    }
 }

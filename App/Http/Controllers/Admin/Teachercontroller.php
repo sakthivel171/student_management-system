@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Teachercontroller extends Controller
 {
@@ -44,16 +45,26 @@ class Teachercontroller extends Controller
          'name'=>'required|string|max:150',
          'email'=>'required|email|unique:teachers,email',
          'password'=>'required',
-         'phone'=>'required|integer|digits_between:10,15',
+         'phone'=>'required|string|digits_between:10,15',
          'employee_id'=>'required|string|unique:teachers,employee_id',
          'qualification'=>'required|string|max:150',
          'joining_date'=>'required|date',
+         'profile_image'=>'nullable|image|mimes:jpg,png,gif,jpeg|max:2048'
+
         ]);
         $data =$request->all();
         $data['password']=Hash::make($request->password);
+
+        if($request->hasFile('profile_image'))
+        {
+            $image=$request->file('profile_image');
+            $path=$image->store('profile_images','public');
+            $data['profile_image']= $path;
+        }
+
         Teacher::create($data);
         return redirect()->route('admin.teachers.index')
-        ->with('succcess','Teachers created sucessfully');
+        ->with('success','Teachers created sucessfully');
     }
 
     /**
@@ -90,6 +101,8 @@ class Teachercontroller extends Controller
          'employee_id'=>'required|string|unique:teachers,employee_id,'. $teacher->id,
          'qualification'=>'required|string|max:150',
          'joining_date'=>'required|date',
+         'profile_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+
         ]);
         $data = $request->all();
 
@@ -101,6 +114,17 @@ class Teachercontroller extends Controller
             unset($data['password']);
         }
 
+
+    if ($request->hasFile('profile_image')) {
+
+        if ($teacher->profile_image && Storage::disk('public')->exists($teacher->profile_image)) {
+            Storage::disk('public')->delete($teacher->profile_image);
+        }
+
+        $image = $request->file('profile_image');
+        $path = $image->store('profile_images', 'public');
+        $data['profile_image'] = $path;
+    }
         $teacher->update($data);
 
         return redirect()->route('admin.teachers.index')

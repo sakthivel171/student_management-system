@@ -6,9 +6,10 @@
 
 <div class="flex justify-between items-center mb-6  ">
     <div>
-        <h2 class="text-3xl font-extrabold text-white tracking-wide">Teachers</h2>
+        <h2 c>Teachers</h2>
         <p class="text-gray-200 mt-1">Manage all Teachers information</p>
     </div>
+
     <a href="{{ route('admin.teachers.create') }}"
         class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 ">
         + Add Teacher
@@ -21,6 +22,7 @@
         <thead>
             <tr class="bg-indigo-600 text-center ">
                 <th class="py-4 px-6 text-lg font-semibold text-gray-200">SL No</th>
+                <th class="py-4 px-6 text-lg font-semibold text-gray-200">Profile</th>
                 <th class="py-4 px-6  text-lg font-semibold text-gray-200">Emp ID</th>
                 <th class="py-4 px-6  text-lg font-semibold text-gray-200">Name</th>
                 <th class="py-4 px-6  text-lg font-semibold text-gray-200">Email</th>
@@ -37,7 +39,9 @@
                 <td class="py-4 px-6 font-medium text-lg">
                     {{ ($teachers->currentPage() - 1) * $teachers->perPage() + $loop->iteration }}
                 </td>
-
+                <td>
+                    <img src="{{$teacher->profile_image_url}}" class="w-16 h-16 mt-2 mb-2 rounded-full border-indigo-400 shadow-sm" alt="{{$teacher->name}}">
+                </td>
                 <td class="py-2 px-4 font-bold text-xl text-indigo-600 ">{{ $teacher->employee_id }}</td>
                 <td class="py-2 px-4 font-medium text-lg">{{ $teacher->name }}</td>
                 <td class="py-2 px-4  font-medium text-lg">{{ $teacher->email }}</td>

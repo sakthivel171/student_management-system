@@ -38,7 +38,7 @@ class Student extends authenticable
         return [
             'password'=>'hashed',
             'date_of_birth'=> 'date',
-            'admission date'=>'date'
+            'admission date'=>'date',
         ];
     }
     public function class(){

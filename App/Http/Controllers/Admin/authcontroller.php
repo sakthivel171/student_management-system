@@ -25,11 +25,12 @@ class authcontroller extends Controller
             'email'=>'required|email',
             'password'=>'required',
         ]);
-
+        //   for security use request for email and password
         $credentials= $request->only('email','password');
 
         if(Auth::guard('admin')->attempt($credentials))
         { 
+            // if admin detail correct then the session ID can be regenerate
             $request->session()->regenerate();
             
             return redirect()->route('admin.dashboard')

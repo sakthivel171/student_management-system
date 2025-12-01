@@ -47,4 +47,9 @@ class Classes extends Model
         )->withPivot('teacher_id','academic_year')
         ->withTimestamps();
     }
+
+     public function assignments()
+    {
+        return $this->hasMany(ClassTeacherSubject::class, 'class_id');
+    }
 }
