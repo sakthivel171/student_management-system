@@ -9,6 +9,15 @@
         <h2 c>Teachers</h2>
         <p class="text-gray-200 mt-1">Manage all Teachers information</p>
     </div>
+    <form action="{{route('admin.teachers.index')}}" method="get">
+        <input type="text" name="search" id="searchInput" value="{{request('search')}}"
+         class="w-[350px] text-white px-4 py-3 border-2 border-indigo-500  rounded-lg outline-0 focus:border-indigo-600 focus:border-2 focus:shadow-indigo-500/50"
+         placeholder="Search... ">
+
+         <button type="submit" class="ml-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50">
+            Search
+         </button>
+    </form>
 
     <a href="{{ route('admin.teachers.create') }}"
         class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 ">
@@ -34,6 +43,7 @@
             </tr>
         </thead>
         <tbody class="text-indigo-800 text-center">
+            @if($teachers->count() >0)
             @foreach ($teachers as $teacher)
             <tr class="border-b odd:bg-white even:bg-gray-100 hover:bg-gray-100">
                 <td class="py-4 px-6 font-medium text-lg">
@@ -74,6 +84,13 @@
                 </td>
             </tr>
             @endforeach
+            @else
+            <tr>
+                <td colspan="6" class="text-center text-xl font-medium text-red-500 py-4"> 
+                    No Data Found
+                </td>
+            </tr>
+            @endif
         </tbody>
     </table>
 </div>
@@ -83,4 +100,16 @@
     {{ $teachers->links() }}
 </div>
 
+<script>
+    const searchInput =document.getElementById('searchInput');
+    
+    let currentvalue=searchInput.value;
+    let cursorpos=currentvalue.length;
+
+    searchInput.addEventListener('input',function(){
+this.form.submit();
+    });
+    searchInput.focus();
+    searchInput.setSelectionRange(cursorpos,cursorpos);
+</script>
 @endsection

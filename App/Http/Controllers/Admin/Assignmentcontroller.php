@@ -14,9 +14,9 @@ class Assignmentcontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       $assignments = DB::table('class_teacher_subject')
+        $assignments = DB::table('class_teacher_subject')
             ->join('classes', 'class_teacher_subject.class_id', '=', 'classes.id')
             ->join('teachers', 'class_teacher_subject.teacher_id', '=', 'teachers.id')
             ->join('subjects', 'class_teacher_subject.subject_id', '=', 'subjects.id')
@@ -30,6 +30,16 @@ class Assignmentcontroller extends Controller
                 'subjects.code as subject_code',
                 'departments.name as department_name'
             )
+            ->when($request->search, function ($query) use ($request) {
+                $search = $request->search;
+                $query->where('classes.name', 'like', "%$search%")
+                        ->orwhere('teachers.name', 'like', "%$search%")
+                        ->orwhere('subjects.name', 'like', "%$search%")
+                        ->orwhere('subjects.code', 'like', "%$search%")
+                        ->orwhere('departments.name', 'like', "%$search%")
+                        ->orwhere('academic_year', 'like', "%$search%");
+                })
+     
             ->orderBy('class_teacher_subject.created_at', 'desc')
             ->paginate(10);
 
@@ -44,7 +54,7 @@ class Assignmentcontroller extends Controller
         $classes = Classes::with('department')->get();
         $teachers = Teacher::with('department')->get();
         $subjects = Subject::with('department')->get();
-        
+
         return view('admin.assignments.create', compact('classes', 'teachers', 'subjects'));
     }
 
@@ -53,7 +63,7 @@ class Assignmentcontroller extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'class_id' => 'required|exists:classes,id',
             'teacher_id' => 'required|exists:teachers,id',
             'subject_id' => 'required|exists:subjects,id',
@@ -82,7 +92,7 @@ class Assignmentcontroller extends Controller
         ]);
 
         return redirect()->route('admin.assignments.index')
-                       ->with('success', 'Teacher assigned to class successfully');
+            ->with('success', 'Teacher assigned to class successfully');
     }
 
     /**
@@ -115,10 +125,8 @@ class Assignmentcontroller extends Controller
     public function destroy(string $id)
     {
         DB::table('class_teacher_subject')->where('id', $id)->delete();
-        
-        return redirect()->route('admin.assignments.index')
-                       ->with('success', 'Assignment removed successfully');
-    }
 
-   
+        return redirect()->route('admin.assignments.index')
+            ->with('success', 'Assignment removed successfully');
+    }
 }

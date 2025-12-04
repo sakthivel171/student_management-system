@@ -10,7 +10,6 @@
 
 <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
 
-
   <nav class="  bg-slate-900/90 backdrop-blur border-b border-slate-700">
     <div class=" mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -24,7 +23,7 @@
             <h1 class="text-2xl sfont-bold text-white leading-tight">
               Admin Portal
             </h1>
-            <p class="text-[14px] text-slate-400 hidden sm:block">
+            <p class="text-[14px] text-slate-300 hidden sm:block">
               Student Management System
             </p>
           </div>
@@ -65,14 +64,14 @@
           </a>
         </div>
 
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center text-center space-x-3">
           <!-- used to show the admin name -->
           <div class="hidden sm:flex flex-col items-end">
 
-            <span class="text-sm font-semibold text-slate-100">
+            <span class="text-sm uppercase font-semibold text-slate-100">
               {{ auth()->guard('admin')->user()->name }}
             </span>
-            <span class="text-[11px] text-emerald-300 uppercase tracking-wide">
+            <span class="text-[11px] text-emerald-300 pr-3 uppercase tracking-wide">
               Admin
             </span>
           </div>

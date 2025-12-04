@@ -22,20 +22,26 @@ class Departmentcontroller extends Controller
     // create the department
     public function create()
     {
-        return View('admin.departments.create');
+        return view('admin.departments.create');
     }
 
     // used to store the new record
     public function store(Request $request)
     {
+
         $request->validate([
         'name'=>'required|string|max:150',
         'code'=>'required|string|unique:departments,code',
+        ],[
+            'name.required'=>'Department Name is Required !',
+            'code.required'=>'Department Code is Required ',
+            'code.unique'=>'Department Code already exists',
         ]);
+        
         
         Department::create($request->all());
         return redirect()->route('admin.departments.index')
-        ->with('sucess','Department created sucessfully!');
+        ->with('success','Department created successfully!');
     }
 
     // used to view the record

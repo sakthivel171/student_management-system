@@ -9,6 +9,12 @@
         <h2 class="text-3xl font-extrabold text-white tracking-wide">Teacher Assignments</h2>
         <p class="text-gray-200 mt-1">Assign teachers to classes with subjects</p>
     </div>
+    <form action="{{route('admin.assignments.index')}}">
+        <input type="text" name="search" id="searchInput" value="{{request('search')}}"
+            class="w-[350px] text-white px-4 py-3 border-2 border-indigo-500  rounded-lg outline-0 focus:border-indigo-600 focus:border-2 focus:shadow-indigo-500/50"
+            placeholder="Search... ">
+           <button type="submit" class="ml-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50">Search</button> 
+    </form>
     <a href="{{ route('admin.assignments.create') }}"
         class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 ">
         + Create Assignments

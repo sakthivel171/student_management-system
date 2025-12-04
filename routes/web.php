@@ -14,6 +14,7 @@ use App\Http\Controllers\Teacher\teacherAuthcontroller;
 use App\Http\Controllers\Teacher\teacherdashboardcontroller;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -30,25 +31,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('logout', [authcontroller::class, 'logout'])->name('logout');
     Route::get('dashboard', [dashboardcontroller::class, 'index'])->name('dashboard');
-   
+
     Route::resource('departments', Departmentcontroller::class);
 
-    Route::resource('classes',classcontroller::class);
+    Route::resource('classes', classcontroller::class);
 
-    Route::resource('teachers',Teachercontroller::class);
+    Route::resource('teachers', Teachercontroller::class);
 
-    Route::resource('students',Studentcontroller::class);
+    Route::resource('students', Studentcontroller::class);
 
-    Route::resource('subjects',Subjectscontroller::class);
-    
+    Route::resource('subjects', Subjectscontroller::class);
 
-     // Assignment Routes (Teacher-Class-Subject assignments)
+
+    // Assignment Routes (Teacher-Class-Subject assignments)
     Route::prefix('assignments')->name('assignments.')->group(function () {
         Route::get('/', [AssignmentController::class, 'index'])->name('index');
         Route::get('create', [AssignmentController::class, 'create'])->name('create');
         Route::post('/', [AssignmentController::class, 'store'])->name('store');
         Route::delete('{id}', [AssignmentController::class, 'destroy'])->name('destroy');
-        
     });
 });
 

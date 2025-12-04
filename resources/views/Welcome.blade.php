@@ -24,24 +24,24 @@
 
             <!-- Admin  login -->
             <a href="{{ route('admin.login') }}"
-            class="group bg-gradient-to-br from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700
-            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            class=" bg-gradient-to-br from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg 
             hover:scale-105 hover:shadow-blue-500/50">
                 <span class="group-hover:text-white">Admin</span>
             </a>
 
             <!-- Teacher login -->
             <a href="{{ route('teacher.login') }}"
-            class="group bg-gradient-to-br from-green-600 to-green-800 hover:from-green-500 hover:to-green-700
-            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            class=" bg-gradient-to-br from-green-600 to-green-800 hover:from-green-500 hover:to-green-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg 
             hover:scale-105 hover:shadow-green-500/50">
                 <span class="group-hover:text-white">Teacher</span>
             </a>
 
             <!-- Student  login -->
             <a href="{{ route('student.login') }}"
-            class="group bg-gradient-to-br from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700
-            rounded-xl px-6 py-4 font-semibold text-center shadow-lg transform transition-all duration-300 
+            class=" bg-gradient-to-br from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700
+            rounded-xl px-6 py-4 font-semibold text-center shadow-lg
             hover:scale-105 hover:shadow-purple-500/50">
                 <span class="group-hover:text-white">Student</span>
             </a>

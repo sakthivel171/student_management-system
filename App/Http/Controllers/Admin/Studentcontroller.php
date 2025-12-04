@@ -13,10 +13,27 @@ class Studentcontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //a
+    public function index(Request $request)
+    {   
         $students = Student::with('class.department')
+        ->when($request->search,function($query) use ($request){
+            $search =$request->search;
+
+            $query->where(function ($subquery) use ($search) {
+                $subquery->where('name','like',"%$search%")
+                ->orWhere('email','like',"%$search%")
+                ->orWhere('phone','like',"%$search%")
+                ->orWhere('address','like',"%$search%")
+                ->orWhere('admission_no','like',"%$search%")
+                ->orWhere('father_name','like',"%$search%")
+                ->orWhere('mother_name','like',"%$search%")
+                ->orWhere('father_occupation','like',"%$search%")
+                ->orWhere('mother_occupation','like',"%$search%");
+            })
+            ->orWhereHas('class.department',function ($q) use ($search){
+                $q->where('name','like',"%$search%");
+            });
+        })
             ->orderby('id', 'asc')
             ->paginate(10);
 

@@ -12,7 +12,7 @@
 
 
         <div class="mb-6">
-            <h1 class="text-3xl font-bold text-indigo-400">{{ $teacher->name }}</h1>
+            <h1 class="text-3xl font-bold uppercase text-indigo-400">{{ $teacher->name }}</h1>
             <p class="text-lg mt-2">
                 <span class="text-slate-300 font-semibold">Employee Id:</span>
                 <span class="text-emerald-300">{{ $teacher->employee_id }}</span>
@@ -43,7 +43,7 @@
 
 
         <div class="bg-slate-900/70 border border-emerald-500/60 rounded-xl p-5 text-center">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Classes</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Total Handled Classes</h3>
             <p class="mt-2 text-4xl font-extrabold">
                 {{$teacher->classes->count()}}
             </p>
@@ -51,7 +51,7 @@
 
         {{-- Total Subjects --}}
         <div class="bg-slate-900/70 border border-blue-500/60 rounded-xl p-5 text-center">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-blue-300">Subjects</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-blue-300">Total Handled Subjects</h3>
             <p class="mt-2 text-4xl font-extrabold">
                 {{$teacher->subjects->count()}}
             </p>
@@ -59,7 +59,7 @@
 
 
         <div class="bg-slate-900/70 border border-pink-500/60 rounded-xl p-5 text-center">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-pink-300">Class Strength</h3>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-pink-300">Total Class Strength</h3>
             <p class="mt-2 text-4xl font-extrabold">
                 {{ $teacher->classes->flatMap->students->count() }}
             </p>
@@ -67,20 +67,20 @@
     </div>
 
     <div class="mb-6">
-        <h2 class="text-xl font-semibold text-emerald-400 mb-3">Handled class</h2>
+        <h2 class="text-xl font-semibold text-emerald-400 mb-3">Handled classes</h2>
         <ul class=" pl-6">
             @forelse($teacher->classes as $class)
-            <li>{{ $class->name }} ({{ $class->section }})</li>
+            <li>• {{ $class->name }} ({{ $class->section }})</li>
             @empty
             <li class="text-slate-400">No classes assigned yet</li>
             @endforelse
         </ul>
 
         <div class="mb-6">
-            <h2 class="text-xl font-semibold text-blue-400 mb-3">Subjects</h2>
+            <h2 class="text-xl font-semibold text-blue-400 mb-3">Handled Subjects</h2>
             <ul class=" pl-6">
                 @forelse($teacher->subjects as $subject)
-                <li>{{ $subject->name }}-Sem {{$subject->semester}}</li>
+                <li>• {{ $subject->name }}-Sem {{$subject->semester}}</li>
                 @empty
                 <li class="text-slate-400">No subjects assigned yet</li>
                 @endforelse

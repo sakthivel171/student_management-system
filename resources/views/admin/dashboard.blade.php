@@ -26,7 +26,7 @@
                 </h2>
                 <!-- show with admin name -->
                 <p class="text-sm text-slate-300 mt-1">
-                    Welcome back, <span class="font-semibold text-emerald-300">{{auth()->guard('admin')->user()->name}}</span> 
+                    Welcome back, <span class="font-semibold uppercase text-emerald-300">{{auth()->guard('admin')->user()->name}}</span> 
                 </p>
             </div>
 
@@ -36,31 +36,31 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
  
             <div class="group bg-slate-900/70 border border-indigo-500/60 rounded-2xl p-5 shadow-lg shadow-indigo-500/10 hover:-translate-y-1 hover:shadow-indigo-500/30 transition transform">
-                <p class="text-xs font-semibold uppercase tracking-wide text-indigo-300">Departments</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-indigo-300">Total Departments</p>
                 <p class="mt-3 text-4xl font-extrabold text-white">{{ $totaldepartments }}</p>
                 <p class="mt-1 text-xs text-slate-400">Total active departments</p>
             </div>
  
             <div class="group bg-slate-900/70 border border-sky-500/60 rounded-2xl p-5 shadow-lg shadow-sky-500/10 hover:-translate-y-1 hover:shadow-sky-500/30 transition transform">
-                <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Classes</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Total Classes</p>
                 <p class="mt-3 text-4xl font-extrabold text-white">{{ $totalclasses }}</p>
                 <p class="mt-1 text-xs text-slate-400">All sections & semesters</p>
             </div>
 
             <div class="group bg-slate-900/70 border border-emerald-500/60 rounded-2xl p-5 shadow-lg shadow-emerald-500/10 hover:-translate-y-1 hover:shadow-emerald-500/30 transition transform">
-                <p class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Teachers</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Total Teachers</p>
                 <p class="mt-3 text-4xl font-extrabold text-white">{{ $totalteachers }}</p>
                 <p class="mt-1 text-xs text-slate-400">Registered faculty members</p>
             </div>
 
             <div class="group bg-slate-900/70 border border-amber-500/60 rounded-2xl p-5 shadow-lg shadow-amber-500/10 hover:-translate-y-1 hover:shadow-amber-500/30 transition transform">
-                <p class="text-xs font-semibold uppercase tracking-wide text-amber-300">Students</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-amber-300">Total Students</p>
                 <p class="mt-3 text-4xl font-extrabold text-white">{{ $totalstudents }}</p>
                 <p class="mt-1 text-xs text-slate-400">Active enrolled students</p>
             </div>
 
             <div class="group bg-slate-900/70 border border-rose-500/60 rounded-2xl p-5 shadow-lg shadow-rose-500/10 hover:-translate-y-1 hover:shadow-rose-500/30 transition transform">
-                <p class="text-xs font-semibold uppercase tracking-wide text-rose-300">Subjects</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-rose-300"> Total Subjects</p>
                 <p class="mt-3 text-4xl font-extrabold text-white">{{ $totalsubjects }}</p>
                 <p class="mt-1 text-xs text-slate-400">Academic subjects offered</p>
             </div>

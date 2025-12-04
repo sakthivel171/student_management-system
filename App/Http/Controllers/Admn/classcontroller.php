@@ -13,13 +13,26 @@ class classcontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $classes=Classes::with('department')
-        ->inrandomorder()
-        ->paginate(10);
-        return view('admin.classes.index',compact('classes'));
+        $classes = Classes::with('department')
+            ->when($request->search, function ($query) use ($request) {
+                $search = $request->search;
+
+                $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('name', 'like', "%$search%")
+                        ->orWhere('section', 'like', "%$search%")
+                        ->orWhere('semester', 'like', "%$search%");
+                })
+                    ->orWhereHas('department', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    });
+            })
+            ->inrandomorder()
+            ->paginate(10)
+            ->withquerystring();
+
+        return view('admin.classes.index', compact('classes'));
     }
 
     /**
@@ -28,9 +41,8 @@ class classcontroller extends Controller
     public function create()
     {
         //
-        $departments=Department::all();
-        return view('admin.classes.create',compact('departments'));
-       
+        $departments = Department::all();
+        return view('admin.classes.create', compact('departments'));
     }
 
     /**
@@ -40,14 +52,14 @@ class classcontroller extends Controller
     {
         //
         $request->validate([
-            'department_id'=>'required|exists:departments,id',
-            'name'=>'required|string|max:100',
-            'section'=>'required|string|max:10',
-            'semester'=>'required|integer|min:1|max:8'
+            'department_id' => 'required|exists:departments,id',
+            'name' => 'required|string|max:100',
+            'section' => 'required|string|max:10',
+            'semester' => 'required|integer|min:1|max:8'
         ]);
         Classes::create($request->all());
         return redirect()->route('admin.classes.index')
-        ->with('success','New class created sucessfully');
+            ->with('success', 'New class created sucessfully');
     }
 
     /**`
@@ -56,18 +68,18 @@ class classcontroller extends Controller
     public function show(Classes $class)
     {
         //
-        $class->load(['department','students','teachers','subjects']);
-        return view('admin.classes.show',compact('class'));
+        $class->load(['department', 'students', 'teachers', 'subjects']);
+        return view('admin.classes.show', compact('class'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( Classes $class)
+    public function edit(Classes $class)
     {
         //
-        $departments=Department::all();
-        return view('admin.classes.edit',compact('class','departments'));    
+        $departments = Department::all();
+        return view('admin.classes.edit', compact('class', 'departments'));
     }
 
     /**
@@ -77,16 +89,15 @@ class classcontroller extends Controller
     {
         //
         $request->validate([
-            'department_id'=>'required|exists:departments,id',
-            'name'=>'required|string|max:100',
-            'section'=>'required|string|max:1',
-            'semester'=>'required|integer|min:1|max:8',
+            'department_id' => 'required|exists:departments,id',
+            'name' => 'required|string|max:100',
+            'section' => 'required|string|max:1',
+            'semester' => 'required|integer|min:1|max:8',
         ]);
         $class->update($request->all());
 
         return redirect()->route('admin.classes.index')
-        ->with('sucess','The classes Details Updated successfully!');
-
+            ->with('sucess', 'The classes Details Updated successfully!');
     }
 
     /**
@@ -95,15 +106,13 @@ class classcontroller extends Controller
     public function destroy(classes $class)
     {
         //
-      try{
-      $class->delete();
-      return redirect()->route('admin.classes.index')
-    ->with('success','class Deleted sucessfully!');
-      }
-      catch(\Exception $e){
-        return redirect()->route('admin.classes.index')
-        ->with('error','cannot Delete the class record with existing data');
-      }
-        
+        try {
+            $class->delete();
+            return redirect()->route('admin.classes.index')
+                ->with('success', 'class Deleted sucessfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.classes.index')
+                ->with('error', 'cannot Delete the class record with existing data');
+        }
     }
 }

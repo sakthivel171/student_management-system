@@ -50,8 +50,8 @@
 
             <!-- Buttons -->
             <div class="pt-2 flex justify-between">
-                <a href="/" class="text-sm text-indigo-200 hover:text-white underline underline-offset-4 transition">
-                    ← Back to Home
+                <a href="/" class="text-sm text-indigo-300 hover:text-white underline underline-offset-4 transition">
+                    Back to Home
                 </a>
 
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg 

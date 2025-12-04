@@ -9,6 +9,13 @@
         <h2 class="text-3xl font-extrabold text-white tracking-wide">Students</h2>
         <p class="text-gray-200 mt-1">Manage all Students information</p>
     </div>
+    <form action="{{route('admin.students.index')}}" method="get">
+        <input type="text" name="search" id="searchInput" value="{{request('search')}}"
+            class="w-[350px] text-white px-4 py-3 border-2 border-indigo-500  rounded-lg outline-0 focus:border-indigo-600 focus:border-2 focus:shadow-indigo-500/50"
+            placeholder="Search... ">
+
+            <button type="submit" class="ml-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50">Search</button>
+    </form>
     <a href="{{ route('admin.students.create') }}"
         class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg hover:shadow-blue-500/50 ">
         + Add Student
@@ -72,7 +79,8 @@
                             <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST"
                                 onsubmit="return confirm('Are you want to delete the Student ?')">
                                 @csrf @method('DELETE')
-                                <button><ion-icon name="trash-outline" class="text-red-600 text-2xl"></ion-icon></button>
+                                <button><ion-icon name="trash-outline"
+                                        class="text-red-600 text-2xl"></ion-icon></button>
                             </form>
                         </div>
                     </td>
@@ -82,11 +90,23 @@
         </table>
     </div>
 </div>
-   
+
 
 <!-- Pagination -->
 <div class="mt-6 w-full flex justify-end">
     {{ $students->links() }}
 </div>
+<script>
+    const searchInput = document.getElementById('searchInput')
+    
+    let currentvalue=searchInput.value;
+    let cursorpos=currentvalue.length;
 
+    searchInput.addEventListener('input',function(){
+        this.form.submit();
+    })
+    searchInput.focus();
+        searchInput.setSelectionRange(cursorpos,cursorpos);
+
+</script>
 @endsection

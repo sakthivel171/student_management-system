@@ -12,9 +12,22 @@ class Subjectscontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $subjects = Subject::with('department')
+        ->when($request->search,function($query) use ($request){
+            $search=$request->search;
+
+            $query->where(function ($subquery) use ($search){
+                $subquery->where('name','like',"%$search%")
+                ->orwhere('code','like',"%$search%")
+                ->orwhere('semester','like',"%$search%");
+            })
+            ->orwhereHas('department',function($q) use($search){
+                $q->where('name','like',"%$search%");
+            });
+
+        })
             ->orderby('id', 'asc')
             ->paginate(10);
         return view('admin.subjects.index', compact('subjects'));

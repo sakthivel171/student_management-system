@@ -14,10 +14,24 @@ class Teachercontroller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $teachers=Teacher::with('department')
+        ->when($request->search,function ($query) use ($request) {
+            $search=$request->search;
+
+            $query->where(function ($subquery) use ($search) {
+                $subquery->where('name','like',"%$search%")
+                ->orWhere('email','like',"%$search%")
+                ->orWhere('employee_id','like',"%$search%")
+                ->orWhere('phone','like',"%$search%")
+                ->orWhere('qualification','like',"%$search%");
+            })
+            ->orWhereHas('department',function ($q) use ($search){
+                $q->where('name','like',"%$search%");
+            });
+        })
          ->orderBy('employee_id', 'asc')
         ->paginate(10);
         return view('admin.teachers.index',compact('teachers'));
