@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Request;
 
 class teacherdashboardcontroller extends Controller
 {
@@ -37,4 +40,17 @@ class teacherdashboardcontroller extends Controller
 
         return view('teacher.dashboard', compact('teacher', 'assignments', 'totalStudents'));
     }
+
+ public function updatePassword(Request $request)
+{
+     $request->validate([
+        'password' => 'required|min:6|confirmed',
+    ]);
+
+    $teacher = Auth::guard('teacher')->user();
+    $teacher->password = ($request->password);
+    $teacher->save();
+ Auth::guard('teacher')->setUser($teacher);
+    return back()->with('success', 'Password updated successfully!');
+}
 }

@@ -65,7 +65,9 @@ Route::prefix('teacher')->name('teacher.')->group(function () {
 Route::prefix('teacher')->name('teacher.')->middleware('teacher')->group(function () {
     Route::post('logout', [teacherAuthcontroller::class, 'logout'])->name('logout');
     Route::get('dashboard', [teacherdashboardcontroller::class, 'index'])->name('dashboard');
+    Route::post('update-password',[teacherdashboardcontroller::class,'updatePassword'])->name('updatePassword');
 });
+
 
 
 

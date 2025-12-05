@@ -100,6 +100,14 @@
   </div>
   </div>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script>
+    setTimeout(() => {
+        document.querySelectorAll('.alert-auto-hide').forEach(el => {
+            el.style.display = 'none';
+        });
+    }, 3000);
+</script>
+
 </body>
 
 </html>

@@ -34,7 +34,7 @@ class authcontroller extends Controller
             $request->session()->regenerate();
             
             return redirect()->route('admin.dashboard')
-            ->with('success','Welcome back' .  Auth::guard('admin')->user()->name);
+            ->with('success'," Welcome back "  .  Auth::guard('admin')->user()->name);
         }
         return back()->withErrors([
             'email'=>'Invalid credential! Please try again.'

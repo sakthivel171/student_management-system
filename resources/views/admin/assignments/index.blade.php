@@ -9,7 +9,7 @@
         <h2 class="text-3xl font-extrabold text-white tracking-wide">Teacher Assignments</h2>
         <p class="text-gray-200 mt-1">Assign teachers to classes with subjects</p>
     </div>
-    <form action="{{route('admin.assignments.index')}}">
+    <form action="{{route('admin.assignments.index')}}" method="get">
         <input type="text" name="search" id="searchInput" value="{{request('search')}}"
             class="w-[350px] text-white px-4 py-3 border-2 border-indigo-500  rounded-lg outline-0 focus:border-indigo-600 focus:border-2 focus:shadow-indigo-500/50"
             placeholder="Search... ">
@@ -71,5 +71,21 @@
 <div class="mt-6 w-full flex justify-end">
     {{ $assignments->links() }}
 </div>
+<script>
+    const searchInput = document.getElementById('searchInput');
+    let currentvalue=searchInput.value;
+    let cursorpos=currentvalue.length;
+   
+    let timeout;
+    searchInput.addEventListener('input',function(){
+        clearTimeout(timeout);
+        timeout=setTimeout(()=>{
+
+            this.form.submit();
+        },500);
+    }) ;
+    searchInput.focus();
+    searchInput.setSelectionRange(cursorpos,cursorpos);
+</script>
 
 @endsection

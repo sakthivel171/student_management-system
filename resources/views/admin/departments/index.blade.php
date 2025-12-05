@@ -94,7 +94,7 @@
             <!-- Validation Messages -->
             @if ($errors->any())
             <div class="bg-red-500/30 text-red-200 border border-red-500 px-4 py-3 rounded-md mb-4">
-                <ul class="list-disc pl-5">
+                <ul class=" pl-5">
                     @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                     @endforeach
